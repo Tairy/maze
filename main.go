@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	img, err := os.Open("./images/source.png")
+	img, err := os.Open("./images/source-2.png")
 	public.CheckErr(err)
 
 	defer img.Close()
@@ -32,7 +32,7 @@ func main() {
 	a := astar.NewAStar(rows, cols)
 	p2p := astar.NewPointToPoint()
 
-	cyan := color.RGBA{255, 0, 0, 0xff}
+	cyan := color.RGBA{R: 255, A: 0xff}
 
 	for y := b.Min.Y; y < b.Max.Y; y++ {
 		for x := b.Min.X; x < b.Max.X; x++ {
@@ -49,8 +49,8 @@ func main() {
 		}
 	}
 
-	source := []astar.Point{{Row: 16, Col: 534}}
-	target := []astar.Point{{Row: 1066, Col: 560}}
+	source := []astar.Point{{Row: 20, Col: 354}}
+	target := []astar.Point{{Row: 500, Col: 360}}
 
 	path := a.FindPath(p2p, source, target)
 
@@ -59,6 +59,9 @@ func main() {
 		path = path.Parent
 	}
 
-	f, _ := os.Create("images/result.png")
+	newImage.Set(354, 20, cyan)
+	newImage.Set(360, 966, cyan)
+
+	f, _ := os.Create("images/result-2.png")
 	png.Encode(f, newImage)
 }
